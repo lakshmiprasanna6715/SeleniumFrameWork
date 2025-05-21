@@ -1,0 +1,51 @@
+package SeleniumFramework.Design.pageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LandingPage {
+	
+	WebDriver driver;
+	
+	public LandingPage(WebDriver driver) {
+		
+		//Intialization
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	//WebElement UserEmail = driver.findElement(By.id("userEmail")).sendKeys("xyz6715@gmail.com");
+	//PageFactory
+	
+	@FindBy(id="userEmail")
+	WebElement UserEmail;
+	
+	//WebElement UserPassword =driver.findElement(By.cssSelector("input.form-control.ng-untouched.ng-pristine.ng-invalid")).sendKeys("Xyz@_12345");
+	
+	@FindBy(css="input.form-control.ng-untouched.ng-pristine.ng-invalid")
+	WebElement PasswordEle;
+	
+	//driver.findElement(By.id("login")).click();
+	@FindBy(id="login")
+	WebElement submit;
+
+	public void LoginApplication(String email, String password)
+	{
+		//pageobject never store data we can just intiliaze/store the  elements to maintain reusability
+		
+		UserEmail.sendKeys(email);
+		PasswordEle.sendKeys(password);
+		submit.click();
+		
+	}
+
+	public void goTo() {
+		// TODO Auto-generated method stub
+		driver.get("https://rahulshettyacademy.com/client");
+	}
+}

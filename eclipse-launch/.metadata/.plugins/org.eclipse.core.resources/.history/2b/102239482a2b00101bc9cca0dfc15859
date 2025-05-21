@@ -1,0 +1,5 @@
+package Rack;
+
+public @interface test {
+
+}

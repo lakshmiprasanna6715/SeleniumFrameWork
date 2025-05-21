@@ -1,0 +1,11 @@
+package Rack;
+
+public class TestNgClass {
+	
+	@test
+	public Void Test() {
+		
+		System.out.println("Hello");
+	}
+
+}

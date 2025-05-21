@@ -1,0 +1,61 @@
+package SeleniumFramework.TestComponents;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+import SeleniumFramework.Design.pageObjects.LandingPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseTest {
+	
+	public WebDriver driver;
+	
+	public WebDriver intiliazationDriver() throws IOException 
+	{
+		//Properties Class
+		Properties prop =new Properties();
+		FileInputStream file = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\java\\SeleniumFramework\\resources\\GlobalData.properties");
+		prop.load(file);
+		String browserName = prop.getProperty("browser");
+		
+		if(browserName.equalsIgnoreCase("chrome"))
+		{
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		}
+		else if(browserName.equalsIgnoreCase("fireFox"))
+		{
+			//FIreFox
+		}
+		else if(browserName.equalsIgnoreCase("edge"))
+		{
+			System.setProperty("webdriver.edge.driver", "edge.exe");
+			WebDriver driver= new EdgeDriver();
+		}
+		
+				return driver;
+	}
+	
+	public LandingPage launchApplication() throws IOException
+	{
+		driver = intiliazationDriver();
+
+		LandingPage landingPage=new LandingPage(driver);
+		landingPage.goTo();
+		
+		return landingPage;
+	}
+	
+	
+	//WebElement Secondprod=products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals("ADIDAS ORIGINAL")).findAny().orElse(null);
+			//Secondprod.findElement(By.xpath("//button[@fdprocessedid='ulmbqa']")).click();
+
+}

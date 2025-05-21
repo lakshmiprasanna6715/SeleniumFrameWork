@@ -1,0 +1,67 @@
+package SeleniumFramework.Design.pageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import SeleniumFramework.Design.UtilityClasses.AbstractComponents;
+
+public class LandingPage extends AbstractComponents {
+	
+	WebDriver driver;
+	
+	public LandingPage(WebDriver driver) {
+		//Here child is LandingPage and parent is AbstractComponents so we send data here calling driver from child to parent by using super keyword
+		super (driver);
+		//Intialization
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	//WebElement UserEmail = driver.findElement(By.id("userEmail")).sendKeys("xyz6715@gmail.com");
+	//PageFactory
+	
+	@FindBy(id="userEmail")
+	WebElement UserEmail;
+	
+	//WebElement UserPassword =driver.findElement(By.cssSelector("input.form-control.ng-untouched.ng-pristine.ng-invalid")).sendKeys("Xyz@_12345");
+	
+	@FindBy(css="input.form-control.ng-untouched.ng-pristine.ng-invalid")
+	WebElement PasswordEle;
+	
+	//driver.findElement(By.id("login")).click();
+	@FindBy(id="login")
+	WebElement submit;
+	
+	//error Message .toast-container  .ng-tns-c4-9.ng-star-inserted.ng-trigger.ng-trigger-flyInOut.ngx-toastr.toast-error
+	@FindBy(css="[class*='ng-trigger-flyInOut']")
+	WebElement errorMessage;
+
+	public ProductCatelogue LoginApplication(String email, String password)
+	{
+		//pageobject never store data we can just intiliaze/store the  elements to maintain reusability
+		
+		UserEmail.sendKeys(email);
+		PasswordEle.sendKeys(password);
+		submit.click();
+		//ProductCatelogue ProductCatelogue =new ProductCatelogue(driver);
+		return new ProductCatelogue(driver);
+		
+	}
+
+	public String getErrorMessage()
+	{
+		waitForWebElementToAppear(errorMessage);
+		return errorMessage.getText();
+	}
+	
+	public void goTo() {
+		
+		driver.get("https://rahulshettyacademy.com/client");
+		
+	}
+}

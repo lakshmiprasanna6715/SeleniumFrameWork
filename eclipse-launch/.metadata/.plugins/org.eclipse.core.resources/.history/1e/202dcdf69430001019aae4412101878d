@@ -1,0 +1,5 @@
+package SeleniumFramework.resources;
+
+public class ExtentReportNG {
+
+}

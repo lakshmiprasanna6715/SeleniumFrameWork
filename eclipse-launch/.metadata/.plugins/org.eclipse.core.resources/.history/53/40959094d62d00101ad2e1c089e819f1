@@ -1,0 +1,59 @@
+package SeleniumFramework.Design.pageObjects;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import SeleniumFramework.Design.UtilityClasses.AbstractComponents;
+
+public class checkOutPage extends AbstractComponents {
+WebDriver driver;
+	
+	public checkOutPage(WebDriver driver) {
+		//Here child is LandingPage and parent is AbstractComponents so we send data here calling driver from child to parent by using super keyword
+		super (driver);
+		//Intialization
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+		
+	}
+	
+	//Actions a=new Actions(driver);
+	//a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")), "india").build().perform();
+	
+	@FindBy(css ="[placeholder='Select Country']")
+	WebElement country;
+	
+	//driver.findElement(By.cssSelector(".action__submit")).click();
+	@FindBy(css =".action__submit")
+	WebElement submit;
+	
+	//driver.findElement(By.cssSelector(".ta-item:nth-last-child(2)")).click();  selecting India
+	@FindBy(css =".ta-item:nth-last-child(2)")
+	WebElement selectIndia;
+
+	By searchResults = By.cssSelector(".ta-results");
+	
+	public void selectCountry(String countryName) 
+	{
+		Actions a=new Actions(driver);
+		a.sendKeys((country), "countryName").build().perform();
+		waitForElementToAppear(searchResults);
+		selectIndia.click();
+	}
+	
+	public confirmationPage submitOrder()
+	{
+		submit.click();
+		return new confirmationPage(driver);
+	}
+	
+
+}

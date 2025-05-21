@@ -1,0 +1,44 @@
+package SeleniumFramework.Design;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import SeleniumFramework.Design.pageObjects.LandingPage;
+import SeleniumFramework.Design.pageObjects.ProductCatelogue;
+import SeleniumFramework.Design.pageObjects.cartPage;
+import SeleniumFramework.Design.pageObjects.checkOutPage;
+import SeleniumFramework.Design.pageObjects.confirmationPage;
+import SeleniumFramework.Design.pageObjects.orderPage;
+import SeleniumFramework.TestComponents.BaseTest;
+
+public class AddingMulProductsToCart extends BaseTest {
+
+	//String productName ="ZARA COAT 3";
+	List<String> productsToAdd = Arrays.asList("ZARA COAT 3", "ADIDAS ORIGINAL", "IPHONE 13 PRO");
+	
+	@Test(dataProvider= "getLoginData")
+	public void submitOrder(String email, String password) throws IOException, InterruptedException
+	{
+		ProductCatelogue Catelogue = landingPage.LoginApplication(email, password);
+
+		List<WebElement> products = Catelogue.getProductList();
+		Catelogue.addingMulProducts(productsToAdd);
+		
+		cartPage cartPage = Catelogue.goToCart();
+		
+	
+
+	}}

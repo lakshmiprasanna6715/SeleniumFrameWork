@@ -1,0 +1,7 @@
+package SeleniumFramework.Design.pageObjects;
+
+public class checkOutPage extends AbstractComponents {
+	
+	
+
+}

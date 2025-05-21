@@ -1,0 +1,53 @@
+package SeleniumFramework.Design;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import SeleniumFramework.Design.pageObjects.LandingPage;
+import SeleniumFramework.Design.pageObjects.ProductCatelogue;
+import SeleniumFramework.Design.pageObjects.cartPage;
+import SeleniumFramework.Design.pageObjects.checkOutPage;
+import SeleniumFramework.Design.pageObjects.confirmationPage;
+import SeleniumFramework.TestComponents.BaseTest;
+
+public class ErrorMessage extends BaseTest {
+
+	String ProductName ="ZARA COAT 3";
+	
+	@Test
+	public void submitOrder() throws IOException, InterruptedException
+	{
+		ProductCatelogue Catelogue = landingPage.LoginApplication("xyz6715@gmail.com", "Xyz@_12345");
+
+		List<WebElement> products = Catelogue.getProductList();
+		Catelogue.addToCart(ProductName);
+		
+		cartPage cartPage = Catelogue.goToCart();
+		Boolean match = cartPage.verifyProductList(ProductName);
+		
+		//In Pageobject/Utility classes we cannot validate anything whether it is true or false we cannot implement assert also only main class
+		Assert.assertTrue(match);
+		
+		checkOutPage checkOutPage = cartPage.goToCheckOut();
+		checkOutPage.selectCountry("india");
+		confirmationPage confirmationPage = checkOutPage.submitOrder();
+				
+		String confirmationMessage =confirmationPage.verifyConfirmationMessage();
+		Assert.assertTrue(confirmationMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER.")); 
+	
+	}
+
+
+
+}
