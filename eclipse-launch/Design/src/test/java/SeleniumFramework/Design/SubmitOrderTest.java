@@ -25,7 +25,7 @@ import SeleniumFramework.TestComponents.BaseTest;
 
 public class SubmitOrderTest extends BaseTest {
 
-	//String productName ="ZARA COAT 3";
+	String productName ="ZARA COAT 3";
 	
 	@Test(dataProvider="getData",groups= {"Purchase"})
 	public void submitOrder(String email, String password, String ProductName) throws IOException, InterruptedException

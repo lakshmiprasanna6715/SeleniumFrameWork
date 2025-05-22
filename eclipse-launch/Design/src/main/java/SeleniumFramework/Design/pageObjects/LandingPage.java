@@ -61,7 +61,7 @@ public class LandingPage extends AbstractComponents {
 	
 	public void goTo() {
 		
-		driver.get("++");
+		driver.get("https://rahulshettyacademy.com/client");
 		
 	}
 }
